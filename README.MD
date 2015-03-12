@@ -2,10 +2,12 @@
 
 ##Usage:
 
-1. Download
+1. Download this to your working folder
 
-2. npm install
+2. run in terminal `npm install`
 
-3. bower i
+3. `bower i`
 
-4. gulp
+4. `gulp`
+
+5. Go to [http://localhost:9000/build/](http://localhost:9000/build/)
