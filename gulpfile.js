@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     prefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
     cssmin = require('gulp-cssmin'),
-    sass = require('gulp-sass'),
+    compass = require('gulp-compass'),
     sourcemaps = require('gulp-sourcemaps'),
     rigger = require('gulp-rigger'),
     imagemin = require('gulp-imagemin'),
@@ -63,7 +63,12 @@ gulp.task('js:build', function () {
 gulp.task('style:build', function () {
     gulp.src(path.src.style) //Выберем наш main.scss
         .pipe(sourcemaps.init()) //То же самое что и с js
-        .pipe(sass()) //Скомпилируем
+        .pipe(compass({
+            css: 'src/css',
+            sass: 'src/sass',
+            image: 'src/images',
+            font: 'src/fonts'
+        })) //Скомпилируем
         .pipe(prefixer()) //Добавим вендорные префиксы
         .pipe(cssmin()) //Сожмем
         .pipe(sourcemaps.write())
