@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     rigger = require('gulp-rigger'),
     imagemin = require('gulp-imagemin'),
     pngquant = require('imagemin-pngquant'),
+    spritesmith = require("gulp.spritesmith"),
     rimraf = require('rimraf'),
     connect = require('gulp-connect'),
     opn = require('opn');
@@ -63,17 +64,11 @@ gulp.task('js:build', function () {
 gulp.task('style:build', function () {
     gulp.src(path.src.style)
         .pipe(sourcemaps.init())
-        /*.pipe(compass({
-         css: 'src/css',
-         sass: 'src/sass',
-         image: 'src/images',
-         font: 'src/fonts'
-         }))*/
         .pipe(sass({errLogToConsole: true}))
-        .pipe(prefixer({
-            browsers: ['last 2 versions'],
-            cascade: false
-        }))
+        //.pipe(prefixer({
+        //    browsers: ['last 2 versions'],
+        //    cascade: false
+        //}))
         .pipe(cssmin())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.build.css))
@@ -90,6 +85,20 @@ gulp.task('image:build', function () {
         }))
         .pipe(gulp.dest(path.build.img))
         .pipe(connect.reload());
+});
+
+gulp.task('sprite', function() {
+    var spriteData =
+        gulp.src('src/images/sprite/*.*') // путь, откуда берем картинки для спрайта
+            .pipe(spritesmith({
+                imgName: 'sprite.png',
+                cssName: '_sprite.sass',
+                cssFormat: 'sass',
+                algorithm: 'binary-tree'
+            }));
+
+    spriteData.img.pipe(gulp.dest('src/images/')); // путь, куда сохраняем картинку
+    spriteData.css.pipe(gulp.dest('src/sass/')); // путь, куда сохраняем стили
 });
 
 gulp.task('fonts:build', function () {
