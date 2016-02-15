@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Guidline</title>
+    <link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css"/>
+</head>
+<body>
+<div class="container"><h2 id="frontend-guidline-v100">Frontend Guidline v.1.0.0</h2>
+    <div class="toc">
+        <ul>
+            <li><a href="#frontend-guidline-v100">Frontend Guidline v.1.0.0</a></li>
+            <li><a href="#используемые-технологии">Используемые технологии</a></li>
+            <li><a href="#структура-файлов-стилей">Структура файлов стилей</a>
+                <ul>
+                    <li><a href="#каталоги">Каталоги</a></li>
+                    <li><a href="#файл-variablessass">Файл _variables.sass</a></li>
+                    <li><a href="#файл-scaffoldingssass">Файл _scaffoldings.sass</a></li>
+                </ul>
+            </li>
+            <li><a href="#написание-стилей">Написание стилей</a>
+                <ul>
+                    <li><a href="#именование-структура-классов">Именование, структура классов</a></li>
+                    <li><a href="#составные-свойства">Составные свойства</a></li>
+                    <li><a href="#переменные-sass">Переменные SASS</a></li>
+                    <li><a href="#использование-mixinов">Использование mixin’ов</a></li>
+                    <li><a href="#директива-extend">Директива @extend</a></li>
+                    <li><a href="#порядок-css-свойств">Порядок CSS свойств</a></li>
+                    <li><a href="#использование-фреймворка-foundation">Использование фреймворка Foundation</a>
+                    </li>
+                    <li><a href="#использование-media-запросов">Использование @media запросов</a></li>
+                    <li><a href="#вертикальный-ритм">Вертикальный ритм</a></li>
+                    <li><a href="#использование-функции-rem-calc">Использование функции rem-calc()</a></li>
+                    <li><a href="#шрифты">Шрифты</a></li>
+                    <li><a href="#стили-состояний">Стили состояний</a></li>
+                    <li><a href="#прочее">Прочее</a></li>
+                </ul>
+            </li>
+            <li><a href="#работа-с-изображениями">Работа с изображениями</a>
+                <ul>
+                    <li><a href="#оптимизация-ширины-и-высоты-изображений">Оптимизация ширины и высоты
+                        изображений.</a></li>
+                    <li><a href="#подгрузка-изображений-нужного-размера-в-зависимости-от-размера-экрана">Подгрузка
+                        изображений нужного размера в зависимости от размера экрана</a></li>
+                    <li><a href="#оптимизация-качества-изображений">Оптимизация качества изображений</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <h2 id="начало-работы">Начало работы</h2>
+
+    <p>Данная сборка позволит быстро влиться в процесс разработки и качественно писать код. <br>
+        По всем вопросам обращайтесь <a href="mailto:gafurovamir@gmail.com">gafurovamir@gmail.com</a>
+    </p>
+
+    <p>Установка:</p>
+    <ol>
+        <li>Скачать сборку и распаковать в папку с проектом</li>
+        <li>npm i && bower i (требуется Node.js и Bower, установленные глобально)</li>
+        <li>Для начала работы - gulp</li>
+        <li>Для создания спрайта - gulp sprite</li>
+    </ol>
+
+    <h2 id="используемые-технологии">Используемые технологии</h2>
+
+    <p>В качестве языка разметки используется HTML <br>
+        CSS пишется с помощью препроцессора <a href="http://sass-lang.com/">SASS</a>, и SASS синтаксисом.
+
+    <p>
+
+    <p>Внешние модули для CSS подключаются в том виде, в котором они написаны, нет необходимости проводить конвертацию в
+        SASS, хотя в некоторых случаях это может быть полезно.</p>
+
+    <p>Порядок поиска и подключения внешних библиотек:</p>
+
+    <ol>
+        <li>Скачать с помощью <a href="http://bower.io/">Bower</a>'a, иначе</li>
+        <li>Скачать вручную в sass/vendor и js/vendor соответственно</li>
+    </ol>
+
+    <h2 id="структура-файлов-стилей">Структура файлов стилей</h2>
+
+    <p>Проект разбит на компоненты:</p>
+
+<pre><code>
+    fonts/
+    | ...
+
+    images/
+    |- sprite/
+    | | ...
+
+    js/
+    |- vendor/
+    | | ...
+    |- main.js
+    | ...
+
+    template/
+    |- styles.html
+    |- scripts.html
+    |- metatags.html
+    |- header.html
+    | ...
+
+    sass/
+    |- base/
+    | |- _foundation.scss
+    | |- _settings.scss
+    | |- _variables.sass
+    | ...
+    |
+    |- components/
+    | |- _variables.sass
+    | |- _buttons.sass
+    | |- _form.sass
+    | |- _topbar.sass
+    | |- _variables.sass
+    | ...
+    |
+    |- helpers/
+    | |- mixins/
+    | | |- _shadows.sass
+    | | ...
+    | |
+    | |- _helpers.sass
+    | |- _shadows.sass
+    | |- _type.sass
+    | |- _hacks.sass
+    | ...
+    |
+    |- layouts/
+    | |- _footer.sass
+    | |- _header.sass
+    | |- _scaffolding.sass
+    | ...
+    |
+    |- vendor/
+    | |- animation.css
+    | ...
+    |
+    |- icons.sass
+    |- main.sass
+</code></pre>
+
+    <p>Главный файл (обычно названный main.sass) должен быть единственным файлом SASS, который не начинается с
+        нижнего подчеркивания. Этот файл не должен содержать ничего, кроме @import и комментариев. <br>
+        Порядок подключения стилей в файле main.sass:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-comment">// Base</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"base/setttings"</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"base/foundation"</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"base/variables"</span>
+
+    <span class="hljs-comment">// Vendor</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"vendor/animation.css"</span>
+
+    <span class="hljs-comment">// Sprite</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"sprite"</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"icons"</span>
+
+    <span class="hljs-comment">// Helpers</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"helpers/shadows"</span>
+
+    <span class="hljs-comment">// Components</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"components/variables"</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"components/buttons"</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"components/form"</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"components/topbar"</span>
+
+    <span class="hljs-comment">// Layouts</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"layouts/scaffoldings"</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"layouts/header"</span>
+    <span class="hljs-annotation">@import</span> <span class="hljs-string">"layouts/footer"</span></code></pre>
+
+    <p>Файлы стилей (sass, scss) имеют префикс “_” , для предотвращения предварительной компиляции.</p>
+
+    <p>Чтобы улучшить читаемость, главный файл должен следовать этим рекомендациям:</p>
+
+    <ul>
+        <li>один @import на строку;</li>
+        <li>не вставлять новые строки между файлами из одной папки;</li>
+        <li>новая строка после вставки последнего @import из одной и той же папки;</li>
+        <li>не писать расширения файлов и нижние подчеркивания</li>
+    </ul>
+
+
+    <h3 id="каталоги">Каталоги</h3>
+
+    <p>Каталог base/ содержит то, что мы можем назвать общим шаблоном проекта. </p>
+
+    <p>Каталог vendors/ <br>
+        Содержит CSS-файлы из внешних библиотек, которые не были подключены в качестве гема.</p>
+
+    <p>Каталог helpers/ <br>
+        Содержит файлы со вспомогательными классами. Часть из этих классов достаточно универсальна и повторно
+        используется в проектах. Миксины также располагаются в этом каталоге.</p>
+
+    <p>Каталог layout/ <br>
+        Содержит всё, что принимает участие в постройке раскладки сайта или приложения. Эта папка может содержать стили
+        для основных частей сайта, а также файлы стилей для конкретных страниц.</p>
+
+    <p>Каталог components/ <br>
+        В то время, как в layout/ стили – основные (определяют общий каркас), код внутри components/ больше сфокусирован
+        на виджетах и содержит все модули, вроде слайдера, загрузчика и тому подобных виджетов.</p>
+
+    <h3 id="файл-variablessass">Файл _variables.sass</h3>
+
+    <p>Содержит в себе переменные всех компонентов. Переменные могут иметь как внутренние зависимости так и
+        внешние. </p>
+
+    <p>Внутренние зависимости находятся в рамках одного компонента. Пример:</p>
+
+    <blockquote>
+        <p>Вертикальный padding для input’a не задается конкретным значением, а рассчитывается по остаточному принципу.
+            Задается значение высоты, высоты строки, размер шрифта, ширина границы.</p>
+    </blockquote>
+
+
+
+
+    <code class=" hljs lasso">
+        <span class="hljs-variable">$input-height</span>: <span class="hljs-variable">$vertical</span><span
+            class="hljs-attribute">-gutter</span><span class="hljs-subst">*</span> <span class="hljs-number">2</span>
+        <br>
+        <span class="hljs-variable">$input</span><span class="hljs-attribute">-line</span><span class="hljs-attribute">-height</span>:<span
+            class="hljs-number">1.5</span> <br>
+        <span class="hljs-variable">$input</span><span class="hljs-attribute">-font</span><span class="hljs-attribute">-size</span>:
+        rem<span class="hljs-attribute">-calc</span>(<span class="hljs-number">12</span>) <br>
+        <span class="hljs-variable">$input</span><span class="hljs-attribute">-border</span><span
+            class="hljs-attribute">-width</span>: rem<span class="hljs-attribute">-calc</span>(<span
+            class="hljs-number">1</span>) <br>
+        <span class="hljs-variable">$input</span><span class="hljs-attribute">-padding</span><span
+            class="hljs-attribute">-vertical</span>: <span class="hljs-variable">$input</span><span
+            class="hljs-attribute">-height</span> <span
+            class="hljs-subst">-</span> <span class="hljs-variable">$input</span><span
+            class="hljs-attribute">-line</span><span class="hljs-attribute">-height</span> <span
+            class="hljs-subst">*</span> <span class="hljs-variable">$input</span><span
+            class="hljs-attribute">-font</span><span class="hljs-attribute">-size</span> <span
+            class="hljs-subst">-</span> <span class="hljs-variable">$input</span><span
+            class="hljs-attribute">-border</span><span class="hljs-attribute">-width</span></code>
+
+    <p>Внешние зависимости, их значения задаются в рамках нескольких компонентов.</p>
+
+    <blockquote>
+        <p>Цвет заголовка документа и его футер должны быть одного цвета</p>
+    </blockquote>
+
+
+    <code class=" hljs lasso">
+        <span class="hljs-variable">$document</span><span class="hljs-attribute">-header</span><span
+            class="hljs-attribute">-bg</span>: <span class="hljs-variable">$iron</span> <br>
+        <span class="hljs-variable">$document</span><span class="hljs-attribute">-bottom</span><span
+            class="hljs-attribute">-bg</span>: <span class="hljs-variable">$document</span><span class="hljs-attribute">-header-bg</span></code>
+
+    <h3 id="файл-scaffoldingssass">Файл _scaffoldings.sass</h3>
+
+    <p>Используется для задания глобальных стилей, таких как, например, тег body.</p>
+
+
+    <h2 id="написание-стилей">Написание стилей</h2>
+
+
+    <h3 id="именование-структура-классов">Именование, структура классов</h3>
+
+    <p>Именование классов отчасти похоже на БЭМ.</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">
+    <span class="hljs-comment">//Блок</span>
+    <span class="hljs-built_in">.</span>document
+
+    <span class="hljs-comment">// Элемент блока</span>
+    <span class="hljs-built_in">.</span>document<span class="hljs-attribute">-item</span>
+
+    <span class="hljs-comment">// Модификатор элемента</span>
+    <span class="hljs-built_in">.</span>document<span class="hljs-attribute">-item</span><span class="hljs-attribute">-label</span></code></pre>
+
+    <p>Вложенность классов избегается. <br>
+        Неудачные реализации:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-built_in">.</span><span
+        class="hljs-built_in">list</span>
+    <span class="hljs-built_in">list</span><span class="hljs-attribute">-style</span>: <span
+            class="hljs-literal">none</span>
+
+    <span class="hljs-built_in">.</span>item
+        font<span class="hljs-attribute">-size</span>: rem<span class="hljs-attribute">-calc</span>(<span
+            class="hljs-number">12</span>)</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-built_in">.</span><span
+        class="hljs-built_in">list</span>
+    <span class="hljs-built_in">list</span><span class="hljs-attribute">-style</span>: <span
+            class="hljs-literal">none</span>
+
+    <span class="hljs-built_in">.</span><span class="hljs-built_in">list</span><span class="hljs-attribute">-item</span>
+        font<span class="hljs-attribute">-size</span>: rem<span class="hljs-attribute">-calc</span>(<span
+            class="hljs-number">12</span>)</code></pre>
+
+    <p>Хорошая реализация:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-built_in">.</span><span
+        class="hljs-built_in">list</span>
+    <span class="hljs-built_in">list</span><span class="hljs-attribute">-style</span>: <span
+            class="hljs-literal">none</span>
+
+<span class="hljs-built_in">.</span><span class="hljs-built_in">list</span><span class="hljs-attribute">-item</span>
+    font<span class="hljs-attribute">-size</span>: rem<span class="hljs-attribute">-calc</span>(<span
+            class="hljs-number">12</span>)</code></pre>
+
+
+    <h3 id="составные-свойства">Составные свойства</h3>
+
+    <p>Составные свойства (font, margin, padding и др. записываются в виде):</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-built_in">.</span>myclass
+    margin:
+        top: <span class="hljs-variable">$vertical</span><span class="hljs-attribute">-gutter</span> <span
+            class="hljs-subst">*</span> <span class="hljs-number">2</span>
+    font:
+        size: rem<span class="hljs-attribute">-calc</span>(<span class="hljs-number">16</span>)</code></pre>
+
+
+    <h3 id="переменные-sass">Переменные SASS</h3>
+
+    <p>Основные значения, а также значения участвующие в расчетах - выносятся в переменные</p>
+
+    <p>Общий шаблон именования переменных:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs mel">
+    <span class="hljs-variable">$&lt;</span>компонент&gt;-&lt;свойство&gt;
+    <span class="hljs-variable">$footer</span>-bg-<span class="hljs-keyword">color</span>: <span class="hljs-variable">$black</span></code></pre>
+
+    <p>Сокращения в именах переменных:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-comment">// background -&gt; bg</span>
+    <span class="hljs-variable">$footer</span><span class="hljs-attribute">-background</span><span
+            class="hljs-attribute">-color</span>:
+    <span class="hljs-variable">$footer</span><span class="hljs-attribute">-bg</span><span
+            class="hljs-attribute">-color</span>:</code></pre>
+
+    <p>Совмещение одинаковых значений переменных:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">
+    <span class="hljs-variable">$footer</span><span
+        class="hljs-attribute">-padding</span><span class="hljs-attribute">-top</span>: <span class="hljs-variable">$vertical</span><span
+        class="hljs-attribute">-gutter</span> <span class="hljs-subst">*</span> <span class="hljs-number">2</span>
+    <span class="hljs-variable">$footer</span><span class="hljs-attribute">-padding</span><span class="hljs-attribute">-bottom</span>: <span class="hljs-variable">$vertical</span><span class="hljs-attribute">-gutter</span> <span
+            class="hljs-subst">*</span> <span class="hljs-number">2</span>
+    <span class="hljs-variable">$footer</span><span class="hljs-attribute">-padding</span><span class="hljs-attribute">-left</span>: <span class="hljs-variable">$vertical</span><span class="hljs-attribute">-gutter</span> <span
+            class="hljs-subst">*</span> <span class="hljs-number">3</span>
+    <span class="hljs-variable">$footer</span><span class="hljs-attribute">-padding</span><span class="hljs-attribute">-right</span>: <span class="hljs-variable">$vertical</span><span class="hljs-attribute">-gutter</span> <span
+            class="hljs-subst">*</span> <span class="hljs-number">3</span>
+
+    <span class="hljs-comment">// Кратко будут записаны:</span>
+    <span class="hljs-variable">$footer</span><span class="hljs-attribute">-padding</span><span class="hljs-attribute">-vertical</span>: <span class="hljs-variable">$vertical</span><span class="hljs-attribute">-gutter</span> <span
+            class="hljs-subst">*</span> <span class="hljs-number">2</span>
+    <span class="hljs-variable">$footer</span><span class="hljs-attribute">-padding</span><span class="hljs-attribute">-horizontal</span>: <span class="hljs-variable">$vertical</span><span class="hljs-attribute">-gutter</span> <span
+            class="hljs-subst">*</span> <span class="hljs-number">3</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">
+    <span class="hljs-variable">$icon</span><span class="hljs-attribute">-width</span>: <span class="hljs-variable">$vertical</span><span class="hljs-attribute">-gutter</span> <span
+            class="hljs-subst">*</span> <span class="hljs-number">2</span>
+    <span class="hljs-variable">$icon</span><span class="hljs-attribute">-height</span>: <span class="hljs-variable">$vertical</span><span
+            class="hljs-attribute">-gutter</span> <span class="hljs-subst">*</span> <span class="hljs-number">2</span>
+
+    <span class="hljs-comment">// Кратко будет записано:</span>
+    <span class="hljs-variable">$icon</span><span class="hljs-attribute">-size</span>: <span class="hljs-variable">$vertical</span><span
+            class="hljs-attribute">-gutter</span> <span class="hljs-subst">*</span> <span
+            class="hljs-number">2</span></code></pre>
+
+    <p>Название псевдокласса и псевдоэлемента используются в качестве постфикса для имени переменной.</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">
+    <span class="hljs-variable">$header</span><span
+        class="hljs-attribute">-top</span><span class="hljs-attribute">-color</span>: <span
+        class="hljs-variable">$oil</span>
+    <span class="hljs-variable">$header</span><span class="hljs-attribute">-top</span><span class="hljs-attribute">-color</span><span
+            class="hljs-attribute">-hover</span>: <span class="hljs-variable">$smoke</span>
+
+    <span class="hljs-built_in">.</span><span class="hljs-keyword">header</span><span class="hljs-attribute">-top</span>
+        color: <span class="hljs-variable">$header</span><span class="hljs-attribute">-top</span><span
+            class="hljs-attribute">-color</span>
+            <span class="hljs-subst">&amp;</span>:hover
+                color: <span class="hljs-variable">$header</span><span class="hljs-attribute">-top</span><span
+                    class="hljs-attribute">-color</span><span class="hljs-attribute">-hover</span></code></pre>
+
+    <p>Переменные для различных разрешений экрана. Та переменная которая задает breakpoint для медиа запроса, задается в
+        качестве постфикса для переменной задающей свойство:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">
+    <span class="hljs-comment">// small - без постфикса</span>
+    <span class="hljs-variable">$footer</span><span class="hljs-attribute">-padding</span><span class="hljs-attribute">-top</span>: <span class="hljs-variable">$vertical</span><span class="hljs-attribute">-gutter</span>
+
+    <span class="hljs-comment">// medium</span>
+    <span class="hljs-variable">$footer</span><span class="hljs-attribute">-padding</span><span class="hljs-attribute">-top</span><span
+            class="hljs-attribute">-medium</span><span class="hljs-attribute">-up</span>: <span class="hljs-variable">$vertical</span><span
+            class="hljs-attribute">-gutter</span>
+
+    <span class="hljs-comment">// large</span>
+    <span class="hljs-variable">$footer</span><span class="hljs-attribute">-padding</span><span class="hljs-attribute">-top</span><span
+            class="hljs-attribute">-large</span><span class="hljs-attribute">-up</span>: <span class="hljs-variable">$vertical</span><span
+            class="hljs-attribute">-gutter</span></code></pre>
+
+    <p>При этом постфикс обозначающий breakpoint всегда будет последним среди других постфиксов (например, переменных
+        для псевдоклассов и псевдоэлементов):</p>
+
+
+    <pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-variable">$footer</span><span
+            class="hljs-attribute">-padding</span><span class="hljs-attribute">-top</span><span class="hljs-attribute">-hover</span><span
+            class="hljs-attribute">-medium</span><span class="hljs-attribute">-up</span></code></pre>
+
+    <p>В случаях когда у группы переменных совпадают значения, для удобства допустимо задать значения только для первой,
+        а последующие в качестве значения получат (унаследуют) первую переменную. Пример:</p>
+
+    <blockquote>
+        <p>Предполагается что цвет заливки иконок социальных сетей, одинаков для всех. Таким образом мы хотим изменяя
+            одно значения, поменять его для всех.</p>
+    </blockquote>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">
+    <span class="hljs-variable">$icon</span><span class="hljs-attribute">-vk</span><span
+        class="hljs-attribute">-fill</span>: <span class="hljs-variable">$white</span>
+    <span class="hljs-variable">$icon</span><span class="hljs-attribute">-fb</span><span
+            class="hljs-attribute">-fill</span>: <span class="hljs-variable">$icon</span><span class="hljs-attribute">-vk</span><span
+            class="hljs-attribute">-fill</span>
+    <span class="hljs-variable">$icon</span><span class="hljs-attribute">-tw</span><span
+            class="hljs-attribute">-fill</span>: <span class="hljs-variable">$icon</span><span class="hljs-attribute">-vk</span><span
+            class="hljs-attribute">-fill</span></code></pre>
+
+    <p>Переменные хранятся в отдельном файле, подробнее см. <a href="#%D1%84%D0%B0%D0%B9%D0%BB-variablessass">Файл
+        _variables.sass</a> <br>
+        Блоки переменных отделяются комментариями, указывающие к какому компоненту эта переменная относится. Блоки
+        переменных отделяются друг от друга двумя переносами строки.</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">
+    <span class="hljs-comment">// Form</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-variable">$my</span><span class="hljs-attribute">-variable</span>: rem<span
+            class="hljs-attribute">-calc</span>(<span class="hljs-number">12</span>)
+    <span class="hljs-variable">$input</span><span class="hljs-attribute">-padding</span>: <span class="hljs-variable">$vertical</span><span
+            class="hljs-attribute">-gutter</span>
+
+
+    <span class="hljs-comment">// Document</span>
+    <span class="hljs-comment">//</span></code></pre>
+
+
+    <h3 id="использование-mixinов">Использование mixin’ов</h3>
+
+    <p>Большие, повторяющиеся участки стилей для удобства выносятся в mixin’ы. <br>
+        В большинстве случаев заменяет использование директивы @extend. </p>
+
+
+    <h3 id="директива-extend">Директива @extend</h3>
+
+    <p>Не используйте директиву @extend. В случаях когда у вас появилась в ней потребность - замените mixin’ом.
+        Пример:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-comment">// Реализация с @extend'ом</span>
+    <span class="hljs-built_in">.</span>my<span class="hljs-attribute">-class</span>
+    font<span class="hljs-attribute">-size</span>: rem<span class="hljs-attribute">-calc</span>(<span
+            class="hljs-number">16</span>)
+
+    <span class="hljs-built_in">.</span>another<span class="hljs-attribute">-class</span>
+    @extend <span class="hljs-built_in">.</span>my<span class="hljs-attribute">-class</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-comment">// Реализация с mixin'ом</span>
+    <span class="hljs-subst">=</span>my<span class="hljs-attribute">-class</span><span
+            class="hljs-attribute">-mixin</span>
+    font<span class="hljs-attribute">-size</span>: rem<span class="hljs-attribute">-calc</span>(<span
+            class="hljs-number">16</span>)
+
+    <span class="hljs-built_in">.</span>my<span class="hljs-attribute">-class</span>
+    <span class="hljs-subst">+</span>my<span class="hljs-attribute">-class</span><span
+            class="hljs-attribute">-mixin</span>
+
+    <span class="hljs-built_in">.</span>another<span class="hljs-attribute">-class</span>
+    <span class="hljs-subst">+</span>my<span class="hljs-attribute">-class</span><span
+            class="hljs-attribute">-mixin</span></code></pre>
+
+    <h3 id="порядок-css-свойств">Порядок CSS свойств</h3>
+
+    <p>В примере ниже, комментарии и разделение групп свойств переносом строки даны для понимания деления свойств на
+        секции. В реальном коде не указываются.</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">
+    <span class="hljs-comment">// Позиционирование</span>
+    position: absolute
+        top: <span class="hljs-number">0</span>
+        right: <span class="hljs-number">0</span>
+        bottom: <span class="hljs-number">0</span>
+        left: <span class="hljs-number">0</span>
+    z<span class="hljs-attribute">-index</span>: <span class="hljs-number">100</span>
+    vertical<span class="hljs-attribute">-align</span>: middle
+    content: <span class="hljs-string">''</span>
+
+    <span class="hljs-comment">// Блочная модель</span>
+    display: block
+    visibility: hidden
+    overflow: hidden
+    float: right
+    clear: both
+    margin: rem<span class="hljs-attribute">-calc</span>(<span class="hljs-number">10</span>)
+    border:
+        width: rem<span class="hljs-attribute">-calc</span>(<span class="hljs-number">1</span>)
+        style: solid
+    color: <span class="hljs-variable">#e5e5e5</span>
+    radius: <span class="hljs-number">50</span><span class="hljs-subst">%</span>
+    padding: rem<span class="hljs-attribute">-calc</span>(<span class="hljs-number">10</span>)
+    width: rem<span class="hljs-attribute">-calc</span>(<span class="hljs-number">100</span>)
+    height: rem<span class="hljs-attribute">-calc</span>(<span class="hljs-number">100</span>)
+
+    <span class="hljs-comment">// Типографика</span>
+    font:
+        family: <span class="hljs-string">"Arial"</span>, sans<span class="hljs-attribute">-serif</span>
+        style: normal
+        size: <span class="hljs-number">13</span>px
+    weight: <span class="hljs-number">500</span>
+    line<span class="hljs-attribute">-height</span>: <span class="hljs-number">1.5</span>
+    text<span class="hljs-attribute">-align</span>: center
+
+    <span class="hljs-comment">// Оформление</span>
+    color: <span class="hljs-variable">#333333</span>
+    background:
+        color: <span class="hljs-variable">#f5f5f5</span>
+        opacity: <span class="hljs-number">1</span>
+    outline:
+        width: rem<span class="hljs-attribute">-calc</span>(<span class="hljs-number">1</span>)
+        style: solid
+        color: <span class="hljs-variable">#666</span>
+
+    <span class="hljs-comment">// Анимация</span>
+    transition: color <span class="hljs-number">1</span>s
+
+    <span class="hljs-comment">// Разное</span>
+    will<span class="hljs-attribute">-change</span>: auto</code></pre>
+
+
+    <h3 id="использование-фреймворка-foundation">Использование фреймворка Foundation</h3>
+
+    <p>В основе проектов лежит фреймворк <a href="http://foundation.zurb.com/docs/">ZURB Foundation 6</a>. Это гибкий
+        инструмент, основа которого файлы _foundation и _settings, содержащие в себе переменные для настройки всех
+        компонентов.</p>
+
+    <p>По умолчанию Foundation подключает все компоненты (например, такие как: buttons, forms и т.п.). Это сильно
+        увеличивает размер итогового CSS файла. Для избежания этого и более гибкого управления, необходимо добавить все
+        компоненты Foundation в файл _foundation с помощью директивы @import в закомментированном
+        состоянии. И по мере необходимости компонентов подключать их (раскомментировав соответствующие компоненты). В
+        примере ниже подключен только компонент сетки:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs perl">
+    <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/grid'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/accordion'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/alert-boxes'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/block-grid'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/breadcrumbs'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/button-groups'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/buttons'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/clearing'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/dropdown'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/dropdown-buttons'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/flex-video'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/forms'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/icon-bar'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/inline-lists'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/joyride'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/keystrokes'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/labels'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/magellan'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/orbit'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/pagination'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/panels'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/pricing-tables'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/progress-bars'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/range-slider'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/reveal'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/side-nav'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/split-buttons'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/sub-nav'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/switches'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/tables'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/tabs'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/thumbs'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/tooltips'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/top-bar'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/type'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/offcanvas'</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-variable">@import</span> <span class="hljs-string">'foundation/components/visibility'</span>;</code></pre>
+
+    <p>Также по мере необходимости раскомментируются и переопределяются переменные из файла _foundation.
+        Порядок работы такой: </p>
+
+    <ol>
+        <li>Проверить есть ли необходимый компонент во фреймворке.</li>
+        <li>Подключить его.</li>
+        <li>Если работа компонента по умолчанию не устраивает и есть потребность изменить свойства, то сначала
+            необходимо решать эту проблему в рамках фреймворка - проверяем есть ли переменная в _settings,
+            задающая значение для интересующего нас свойства.
+        </li>
+        <li>Если есть, задаем необходимое значение.</li>
+        <li>Если переменной нет, то в рамках классов, предоставляемых Foundation, задаем необходимые значения.</li>
+        <li>Если компонента нет во фреймворке - пишем свой компонент.</li>
+    </ol>
+
+    <p>Foundation - это mobile first фреймворк соответственно необходимо придерживаться этого принципа при написании
+        стилей.</p>
+
+
+    <h3 id="использование-media-запросов">Использование @media запросов</h3>
+
+    <a href="http://foundation.zurb.com/sites/docs/media-queries.html">Более полная информация</a>
+
+
+    <h3 id="вертикальный-ритм">Вертикальный ритм</h3>
+
+    <p>В качестве базового <strong>вертикального</strong> размера используется вертикальный ритм. Его значение
+        варьируется в зависимости от проекта, но в рамках проекта он имеет одно значение (например, 8px или 16px) и
+        задается переменной <span>$</span>vertical-gutter в секции сетки файла _settings. Это базовый
+        вертикальный размер для свойств (padding-top, padding-bottom, margin-top, margin-bottom, height) всех
+        компонентов, размер которых задается через значение:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">
+    <span class="hljs-comment">// В _settings</span>
+    <span class="hljs-variable">$vertical</span><span class="hljs-attribute">-gutter</span>: rem<span
+            class="hljs-attribute">-calc</span>(<span class="hljs-number">8</span>);
+
+    <span class="hljs-comment">// В файле стилей</span>
+    <span class="hljs-variable">$vertical</span><span class="hljs-attribute">-gutter</span> <span
+            class="hljs-subst">*</span> множитель</code></pre>
+
+
+    <h3 id="использование-функции-rem-calc">Использование функции rem-calc()</h3>
+
+    <p>Значения для свойств задается не в px, а в rem. Задаются эти значения не вручную, а с помощью функции из
+        Foundation - rem-calc().</p>
+
+    <blockquote>
+        <p>ширина в 200px, в rem’ах</p>
+    </blockquote>
+
+
+    <pre class="prettyprint"><code class=" hljs http"><span class="hljs-attribute">width</span>: <span
+            class="hljs-string">rem-calc(200)</span></code></pre>
+
+
+    <h3 id="шрифты">Шрифты</h3>
+
+    <p>Шрифты подключаются в _settings перед переменными шрифтов - $font-family-sans-serif</p>
+
+    <p>Пример подключение шрифта:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">
+    @font<span class="hljs-attribute">-face</span> {
+        font<span class="hljs-attribute">-family</span>: <span class="hljs-string">"OpenSansRegular"</span>;
+        src: font<span class="hljs-attribute">-url</span>(<span
+                class="hljs-string">"OpenSansRegular/OpenSansRegular.eot"</span>);
+        src: font<span class="hljs-attribute">-url</span>(<span class="hljs-string">"OpenSansRegular/OpenSansRegular.eot?#iefix"</span>)format(<span
+                class="hljs-string">"embedded-opentype"</span>),
+        font<span class="hljs-attribute">-url</span>(<span class="hljs-string">"OpenSansRegular/OpenSansRegular.woff"</span>) format(<span class="hljs-string">"woff"</span>),
+        font<span class="hljs-attribute">-url</span>(<span class="hljs-string">"OpenSansRegular/OpenSansRegular.ttf"</span>) format(<span class="hljs-string">"truetype"</span>);
+        font<span class="hljs-attribute">-style</span>: normal;
+        font<span class="hljs-attribute">-weight</span>: normal;
+    }
+
+    <span class="hljs-comment">// Шрифт "OpenSansRegular" добавляется в переменную задающую базовый sans-serif шрифт:</span>
+    <span class="hljs-variable">$font</span><span class="hljs-attribute">-family</span><span class="hljs-attribute">-sans</span><span
+            class="hljs-attribute">-serif</span>: <span class="hljs-string">"OpenSansRegular"</span>, <span
+            class="hljs-string">"Helvetica Neue"</span>, Helvetica, Roboto, sans<span
+            class="hljs-attribute">-serif</span>;</code></pre>
+
+    <p>Для light и bold шрифтов в foundation_and_overrides добавляются соответствующие переменные, пример
+        использования:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-variable">$font</span><span class="hljs-attribute">-family</span><span
+        class="hljs-attribute">-sans</span><span class="hljs-attribute">-serif</span><span
+        class="hljs-attribute">-bold</span>: <span class="hljs-string">"OpenSansBold"</span>, Arial, sans<span
+        class="hljs-attribute">-serif</span>;
+
+    <span class="hljs-comment">// _type.sass</span>
+    font:
+        family: <span class="hljs-variable">$font</span><span class="hljs-attribute">-family</span><span
+            class="hljs-attribute">-sans</span><span class="hljs-attribute">-serif</span><span class="hljs-attribute">-bold</span></code></pre>
+
+
+    <h3 id="стили-состояний">Стили состояний</h3>
+
+    <p>Используются для обозначения определенного состояние элемента. Классы состояний имеют префикс “is-“. Всегда
+        задаются в контексте. Состояния которые применяются на body располагаются в файле <a
+                href="#%D1%84%D0%B0%D0%B9%D0%BB-scaffoldingssass">_scaffolding.sass</a></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-built_in">.</span><span
+        class="hljs-built_in">list</span><span class="hljs-attribute">-item</span>
+    color: <span class="hljs-variable">$white</span>
+    <span class="hljs-subst">&amp;</span><span class="hljs-built_in">.</span>is<span
+            class="hljs-attribute">-active</span>
+        color: <span class="hljs-variable">$black</span></code></pre>
+
+
+    <h3 id="прочее">Прочее</h3>
+
+    <ul>
+        <li>id селекторы не используются для задания стилей.</li>
+        <li>Стили пишутся без вендорных префиксов, их проставлением при сборке css занимается autoprefixer.</li>
+    </ul>
+
+
+    <h2 id="работа-с-изображениями">Работа с изображениями</h2>
+
+    <p>Каталог изображений располагается в images/</p>
+
+
+    <h3 id="оптимизация-ширины-и-высоты-изображений">Оптимизация ширины и высоты изображений.</h3>
+
+    <p>Предоставление изображений с неправильными пропорциями увеличивают время загрузки и обработки страницы браузером.
+        Сначала ему приходится загрузить большое изображение, а потом сжимать до нужных размеров. <br>
+        По этой причине изображения подготавливаются, в графическом редакторе уменьшаются до необходимых размеров.</p>
+
+
+    <h3 id="подгрузка-изображений-нужного-размера-в-зависимости-от-размера-экрана">Подгрузка изображений нужного размера
+        в зависимости от размера экрана</h3>
+
+    <p>Для еще большей оптимизации в Foundation есть компонент <a
+            href="http://foundation.zurb.com/sites/docs/interchange.html">Interchange</a> позволяющие подгружать
+        изображения необходимого размера в зависимости от размера экрана.</p>
+
+
+    <h3 id="оптимизация-качества-изображений">Оптимизация качества изображений</h3>
+
+    <p>Изображения экспортируемые из графических редакторов зачастую обладают избыточной информацией, как следствие
+        имеют лишний вес. Изображения формата PNG, для которых критично качество, необходимо использовать сжатие без
+        потерь (lossless), для этого подойдет онлайн сервис <a href="https://compressor.io/">compressor.io</a>.</p>
+
+    <p>Для изображений формата PNG и JPG для которых качество не столь критично, нужно использовать сжатие с потерями
+        (lossy), для этого прекрасно подходит онлайн сервис <a href="https://tinypng.com/">tinypng</a>. </p>
+
+    <p>Также в сборке есть автоматическое сжатие плагином "gulp-imagemin", который сжимает изображения в автоматическом режиме при компиляции</p>
+    </div>
+</body>
+</html>
