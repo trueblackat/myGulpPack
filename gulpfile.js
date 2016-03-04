@@ -84,16 +84,20 @@ gulp.task('image:build', function () {
 
 gulp.task('sprite', function() {
     var spriteData =
-        gulp.src('src/images/sprite/*.*') // путь, откуда берем картинки для спрайта
+        gulp.src('src/sprite/*.*')
             .pipe(spritesmith({
                 imgName: 'sprite.png',
                 cssName: '_sprite.sass',
                 cssFormat: 'sass',
-                algorithm: 'binary-tree'
+                algorithm: 'binary-tree',
+                cssTemplate: 'sass.template.mustache',
+                cssVarMap: function(sprite) {
+                    sprite.name = 's-' + sprite.name
+                }
             }));
 
-    spriteData.img.pipe(gulp.dest('src/images/')); // путь, куда сохраняем картинку
-    spriteData.css.pipe(gulp.dest('src/sass/')); // путь, куда сохраняем стили
+    spriteData.img.pipe(gulp.dest('src/images/'));
+    spriteData.css.pipe(gulp.dest('src/sass/'));
 });
 
 gulp.task('fonts:build', function () {
