@@ -10,6 +10,10 @@ var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     pngquant = require('imagemin-pngquant'),
     spritesmith = require("gulp.spritesmith"),
+    svgstore = require('gulp-svgstore'),
+    svgmin = require('gulp-svgmin'),
+    inject = require('gulp-inject'),
+    rename = require('gulp-rename'),
     rimraf = require('rimraf'),
     connect = require('gulp-connect'),
     opn = require('opn');
@@ -27,6 +31,8 @@ var path = {
         js: 'src/js/main.js',
         style: 'src/sass/main.sass',
         img: 'src/images/**/*.*',
+        pngSprite: 'src/sprite/png/',
+        svgSprite: 'src/sprite/svg/**/*.svg',
         fonts: 'src/fonts/**/*.*'
     },
     watch: {
@@ -82,16 +88,22 @@ gulp.task('image:build', function () {
         .pipe(connect.reload());
 });
 
-gulp.task('sprite', function() {
+gulp.task('fonts:build', function () {
+    gulp.src(path.src.fonts)
+        .pipe(gulp.dest(path.build.fonts))
+});
+
+// PNG Sprites
+gulp.task('png-sprite', function () {
     var spriteData =
-        gulp.src('src/sprite/*.*')
+        gulp.src(path.src.pngSprite + '*.*')
             .pipe(spritesmith({
                 imgName: 'sprite.png',
-                cssName: '_sprite.sass',
+                cssName: '_png-sprite.sass',
                 cssFormat: 'sass',
                 algorithm: 'binary-tree',
                 cssTemplate: 'sass.template.mustache',
-                cssVarMap: function(sprite) {
+                cssVarMap: function (sprite) {
                     sprite.name = 's-' + sprite.name
                 }
             }));
@@ -100,9 +112,24 @@ gulp.task('sprite', function() {
     spriteData.css.pipe(gulp.dest('src/sass/'));
 });
 
-gulp.task('fonts:build', function () {
-    gulp.src(path.src.fonts)
-        .pipe(gulp.dest(path.build.fonts))
+// SVG Sprites
+gulp.task('svg-sprite', function () {
+
+    var svgs = gulp
+        .src(path.src.svgSprite)
+        .pipe(rename({prefix: 'svg-icon-'}))
+        .pipe(svgmin())
+        .pipe(svgstore({ inlineSvg: true }));
+
+    function fileContents (filePath, file) {
+        return file.contents.toString();
+    }
+
+    return gulp
+        .src('src/template/svg.html')
+        .pipe(inject(svgs, { transform: fileContents }))
+        .pipe(gulp.dest('src/template'));
+
 });
 
 gulp.task('build', [
@@ -113,6 +140,7 @@ gulp.task('build', [
     'image:build'
 ]);
 
+// TODO: добавить watcher для спрайтов
 gulp.task('watch', function () {
     watch([path.watch.html], function (event, cb) {
         gulp.start('html:build');
