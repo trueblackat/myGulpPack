@@ -15,8 +15,7 @@ var gulp = require('gulp'),
     inject = require('gulp-inject'),
     rename = require('gulp-rename'),
     rimraf = require('rimraf'),
-    connect = require('gulp-connect'),
-    opn = require('opn');
+    browserSync = require('browser-sync').create();
 
 var path = {
     build: {
@@ -45,16 +44,19 @@ var path = {
     clean: './build'
 };
 
-var server = {
-    host: 'localhost',
-    port: '9000'
-};
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        server: {
+            baseDir: "./build"
+        }
+    });
+});
 
 gulp.task('html:build', function () {
     gulp.src(path.src.html)
         .pipe(rigger())
         .pipe(gulp.dest(path.build.html))
-        .pipe(connect.reload());
+        .pipe(browserSync.stream());
 });
 
 gulp.task('js:build', function () {
@@ -62,7 +64,7 @@ gulp.task('js:build', function () {
         .pipe(rigger())
         .pipe(uglify())
         .pipe(gulp.dest(path.build.js))
-        .pipe(connect.reload());
+        .pipe(browserSync.stream());
 });
 
 gulp.task('style:build', function () {
@@ -73,7 +75,7 @@ gulp.task('style:build', function () {
         .pipe(cssmin())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.build.css))
-        .pipe(connect.reload());
+        .pipe(browserSync.stream());
 });
 
 gulp.task('image:build', function () {
@@ -85,7 +87,7 @@ gulp.task('image:build', function () {
             interlaced: true
         }))
         .pipe(gulp.dest(path.build.img))
-        .pipe(connect.reload());
+        .pipe(browserSync.stream());
 });
 
 gulp.task('fonts:build', function () {
@@ -159,20 +161,8 @@ gulp.task('watch', function () {
     });
 });
 
-gulp.task('webserver', function () {
-    connect.server({
-        host: server.host,
-        port: server.port,
-        livereload: true
-    });
-});
-
 gulp.task('clean', function (cb) {
     rimraf(path.clean, cb);
 });
 
-gulp.task('openbrowser', function () {
-    opn('http://' + server.host + ':' + server.port + '/build');
-});
-
-gulp.task('default', ['build', 'webserver', 'watch']);
+gulp.task('default', ['build', 'browser-sync', 'watch']);
