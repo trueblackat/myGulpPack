@@ -15,6 +15,8 @@ var gulp = require('gulp'),
     inject = require('gulp-inject'),
     rename = require('gulp-rename'),
     rimraf = require('rimraf'),
+    plumber = require('gulp-plumber'),
+    notify = require("gulp-notify"),
     browserSync = require('browser-sync').create();
 
 var path = {
@@ -61,6 +63,7 @@ gulp.task('html:build', function () {
 
 gulp.task('js:build', function () {
     gulp.src(path.src.js)
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(rigger())
         .pipe(uglify())
         .pipe(gulp.dest(path.build.js))
@@ -69,6 +72,7 @@ gulp.task('js:build', function () {
 
 gulp.task('style:build', function () {
     gulp.src(path.src.style)
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(sourcemaps.init())
         .pipe(sass({errLogToConsole: true}))
         .pipe(prefixer())

@@ -26,5 +26,9 @@
     "imagemin-pngquant": "*",
     "rimraf": "*",
     "browser-sync": "^2.11.2"
+  },
+  "devDependencies": {
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0"
   }
 }
