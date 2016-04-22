@@ -14,7 +14,6 @@ var gulp = require('gulp'),
     svgmin = require('gulp-svgmin'),
     inject = require('gulp-inject'),
     rename = require('gulp-rename'),
-    rimraf = require('rimraf'),
     plumber = require('gulp-plumber'),
     notify = require("gulp-notify"),
     browserSync = require('browser-sync').create();
@@ -163,10 +162,6 @@ gulp.task('watch', function () {
     watch([path.watch.fonts], function (event, cb) {
         gulp.start('fonts:build');
     });
-});
-
-gulp.task('clean', function (cb) {
-    rimraf(path.clean, cb);
 });
 
 gulp.task('default', ['build', 'browser-sync', 'watch']);

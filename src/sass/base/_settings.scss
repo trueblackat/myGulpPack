@@ -41,11 +41,24 @@
 
 @import '../../../bower_components/foundation-sites/scss/util/util';
 
+// 0. FontFaces
+
 // 1. Global
 // ---------
-$vertical-gutter: rem-calc(8);
+
+$rem-base: rem-calc(16);
+
+$base-small-font-size: rem-calc($rem-base - 4); // 12
+$base-medium-font-size: rem-calc($rem-base - 2); // 14
+$base-font-size: rem-calc($rem-base); // 16
+$base-large-font-size: rem-calc($rem-base + 2); // 18
+$base-xlarge-font-size: rem-calc($rem-base + 4); // 20
+
+$base-transition: .3s;
+
+$vertical-gutter: rem-calc(16);
 $global-font-size: 100%;
-$global-width: rem-calc(1200);
+$global-width: rem-calc(1200); // max-width
 $global-lineheight: 1.5;
 $primary-color: #2199e8;
 $secondary-color: #777;
@@ -85,7 +98,7 @@ $breakpoint-classes: (small medium large);
 
 $grid-row-width: $global-width;
 $grid-column-count: 12;
-$grid-column-responsive-gutter: (
+$grid-column-gutter: (
         small: 20px,
         medium: 30px,
 );
